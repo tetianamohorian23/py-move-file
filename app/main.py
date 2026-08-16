@@ -8,16 +8,17 @@ def move_file(command: str) -> None:
     if len(command_line) != 3:
         return
 
-    command_op, file_input, file_output = command_line[0], command_line[1], command_line[2]
+    command_op, file_input, file_output \
+        = command_line[0], command_line[1], command_line[2]
 
     if command_op != "mv":
         return
-    
+
     if (file_output.endswith("/")
             or file_output.endswith("\\")
             or os.path.isdir(file_output)):
         file_output = os.path.join(file_output,
-                                       os.path.basename(file_input))
+                                   os.path.basename(file_input))
 
     directory = os.path.dirname(file_output)
 
