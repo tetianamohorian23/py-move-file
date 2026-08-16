@@ -10,7 +10,7 @@ def move_file(command: str) -> None:
 
     command_op, file_input, file_output = command_line[0], command_line[1], command_line[2]
 
-    if command_op != "mv"
+    if command_op != "mv":
         return
     
     if (file_output.endswith("/")
