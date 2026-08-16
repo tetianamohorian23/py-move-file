@@ -5,26 +5,19 @@ def move_file(command: str) -> None:
 
     command_line = command.split(" ")
 
-    if command_line[2].endswith("/"):
+    if len(command_line) < 3 or command_line[0] != "mv":
+        return
+
+    if (command_line[2].endswith("/")
+            or command_line[2].endswith("\\")
+            or os.path.isdir(command_line[2])):
         command_line[2] = os.path.join(command_line[2],
                                        os.path.basename(command_line[1]))
 
-    parts_of_path = command_line[2].split("/")
+    directory = os.path.dirname(command_line[2])
 
-    if len(parts_of_path) > 1:
-
-        folders = parts_of_path[:-1]
-
-        new_path = ""
-
-        for folder in folders:
-            if folder:
-                new_path += folder + "/"
-            else:
-                new_path = folder
-
-            if not os.path.exists(new_path):
-                os.mkdir(new_path)
+    if directory:
+        os.makedirs(directory, exist_ok=True)
 
     with (open(command_line[1], "r") as file_in,
           open(command_line[2], "w") as file_out):
